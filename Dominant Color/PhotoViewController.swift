@@ -91,6 +91,9 @@ class PhotoViewController: UIViewController, UIImagePickerControllerDelegate, UI
     // Passes an image to the Analyzer class
     @IBAction func analyzePhoto(sender: UIBarButtonItem)
     {
+        
+        println(imageView.image!.size)
+        
         // Used to determine how long it took an image to be analyzed
         let startTime = NSDate()
         
@@ -98,19 +101,35 @@ class PhotoViewController: UIViewController, UIImagePickerControllerDelegate, UI
         let imageStrips = splitImage(8)
         
         // Stores the dominant color of each strip
-        var colorList = Array<String>()
+        var colorList = [String](count: 8, repeatedValue: "")
         
-        // My failed attempt at concurrency.  Comment this out to run sequentially.
-        dispatch_async(dispatch_get_global_queue(Int(QOS_CLASS_UTILITY.value), 0)) {
-            for (var i = 0; i < 8; i++)
-            {
+        
+        // Code used from a post on StackOverflow
+        // http://stackoverflow.com/questions/29886827/use-dispatch-async-to-analyze-an-array-concurrently-in-swift/29887442?noredirect=1#comment47899968_29887442
+        let group = dispatch_group_create()
+        let queue = dispatch_get_global_queue(QOS_CLASS_UTILITY, 0)
+        
+        let qos_attr = dispatch_queue_attr_make_with_qos_class(DISPATCH_QUEUE_SERIAL, QOS_CLASS_UTILITY, 0)
+        let syncQueue = dispatch_queue_create("syncQueue", qos_attr)
+        
+        
+        for i in 0 ..< 8
+        {
+            dispatch_group_async(group, queue){
                 let color = self.photoAnalyzer.analyzeColors(imageStrips[i])
-                colorList.append(color)
+                dispatch_sync(syncQueue){
+                    colorList[i] = color
+                    return
+                }
             }
         }
         
-        // Passes the current image to the photo analyzer
-        // Uncomment this to run analyzer sequentially
+        println(colorList)
+        
+        /* 
+            Passes the current image to the photo analyzer
+            Uncomment the following line to run analyzer sequentially
+        */
         //let color = photoAnalyzer.analyzeColors(imageView.image!)
         
         // Used to determine how long it took an image to be analyzed
