@@ -12,20 +12,24 @@
 	<dict>
 		<key>5BF64E6D1BBE8F3EA9123BE18E2307D2D614E2C1</key>
 		<string>https://github.com/steveclark91/Concurrent_Programming.git</string>
+		<key>D8BA11538CB767BE0D7A619E0187E4D8978A65AC</key>
+		<string>https://github.com/steveclark91/Dominant_Color.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
-	<string>Project/Dominant Color/Dominant Color.xcodeproj</string>
+	<string>Dominant Color.xcodeproj</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
 		<key>5BF64E6D1BBE8F3EA9123BE18E2307D2D614E2C1</key>
-		<string>../../../..</string>
+		<string>../../..</string>
+		<key>D8BA11538CB767BE0D7A619E0187E4D8978A65AC</key>
+		<string>../..</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
-	<string>https://github.com/steveclark91/Concurrent_Programming.git</string>
+	<string>https://github.com/steveclark91/Dominant_Color.git</string>
 	<key>IDESourceControlProjectVersion</key>
 	<integer>111</integer>
 	<key>IDESourceControlProjectWCCIdentifier</key>
-	<string>5BF64E6D1BBE8F3EA9123BE18E2307D2D614E2C1</string>
+	<string>D8BA11538CB767BE0D7A619E0187E4D8978A65AC</string>
 	<key>IDESourceControlProjectWCConfigurations</key>
 	<array>
 		<dict>
@@ -34,7 +38,15 @@
 			<key>IDESourceControlWCCIdentifierKey</key>
 			<string>5BF64E6D1BBE8F3EA9123BE18E2307D2D614E2C1</string>
 			<key>IDESourceControlWCCName</key>
-			<string>CSCI_4830_Concurrent</string>
+			<string></string>
+		</dict>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>D8BA11538CB767BE0D7A619E0187E4D8978A65AC</string>
+			<key>IDESourceControlWCCName</key>
+			<string>Dominant%20Color</string>
 		</dict>
 	</array>
 </dict>

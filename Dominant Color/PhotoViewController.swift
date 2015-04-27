@@ -14,12 +14,16 @@ class PhotoViewController: UIViewController, UIImagePickerControllerDelegate, UI
     var photoAnalyzer = Analyzer()
     var color = String()
     
-    
     // Outlets to UI
     @IBOutlet weak var progressView: UIProgressView!
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var analyzeButton: UIBarButtonItem!
     
+    override func viewDidLoad()
+    {
+        super.viewDidLoad()
+        imageView.contentMode = UIViewContentMode.ScaleAspectFit
+    }
     
     // Grabs a photo from the camera or photo library
     @IBAction func addPhoto(sender: UIBarButtonItem)
@@ -90,25 +94,24 @@ class PhotoViewController: UIViewController, UIImagePickerControllerDelegate, UI
         // Used to determine how long it took an image to be analyzed
         let startTime = NSDate()
         
-        // INCOMPLETE
-        // Used to split image into multiple strips. Will be moved to
-        // seperate function once code is fully functional.
-        let myImage = imageView.image!
-        let newWidth = (myImage.size.width) / 2
-        let newHeight = myImage.size.height
-        var cropRect = CGRectMake(0.0, 0.0, newWidth, newHeight)
+        // Split the image into 8 strips
+        let imageStrips = splitImage(8)
         
-        var tempImage = CGImageCreateWithImageInRect(myImage.CGImage!, cropRect)
+        // Stores the dominant color of each strip
+        var colorList = Array<String>()
         
-        let newImage = UIImage(CGImage: tempImage)!
-        
-        println("Original Image: \(myImage.size)")
-        println("New Image: \(newImage.size)")
-
-        imageView.image = newImage
+        // My failed attempt at concurrency.  Comment this out to run sequentially.
+        dispatch_async(dispatch_get_global_queue(Int(QOS_CLASS_UTILITY.value), 0)) {
+            for (var i = 0; i < 8; i++)
+            {
+                let color = self.photoAnalyzer.analyzeColors(imageStrips[i])
+                colorList.append(color)
+            }
+        }
         
         // Passes the current image to the photo analyzer
-        let color = photoAnalyzer.analyzeColors(imageView.image!)
+        // Uncomment this to run analyzer sequentially
+        //let color = photoAnalyzer.analyzeColors(imageView.image!)
         
         // Used to determine how long it took an image to be analyzed
         let endTime = NSDate()
@@ -132,5 +135,24 @@ class PhotoViewController: UIViewController, UIImagePickerControllerDelegate, UI
         self.presentViewController(colorAlert, animated: true, completion: nil)
     }
     
+    // Splits the image into a certain number of strips.  Returns a list of images.
+    private func splitImage(numStrips: Int) -> [UIImage]
+    {
+        let myImage = imageView.image!
+        let newWidth = myImage.size.width
+        let newHeight = (myImage.size.height) / CGFloat(numStrips)
+        var splitImages = Array<UIImage>()
+        
+        for (var i = 0; i < numStrips; i++)
+        {
+            let stripVert = CGFloat(i) * newHeight
+            let cropRect = CGRectMake(0.0, stripVert, newWidth, newHeight)
+            let tempImage = CGImageCreateWithImageInRect(myImage.CGImage!, cropRect)
+            let newImage = UIImage(CGImage: tempImage)!
+            splitImages.append(newImage)
+        }
+        
+        return splitImages
+    }
 }
 
