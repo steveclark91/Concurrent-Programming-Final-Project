@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>CDF2653C-A49F-4572-8DA2-715D9E315D05</string>
+	<key>IDESourceControlProjectName</key>
+	<string>Dominant Color</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>5BF64E6D1BBE8F3EA9123BE18E2307D2D614E2C1</key>
+		<string>https://github.com/steveclark91/Concurrent_Programming.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>Project/Dominant Color/Dominant Color.xcodeproj</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>5BF64E6D1BBE8F3EA9123BE18E2307D2D614E2C1</key>
+		<string>../../../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/steveclark91/Concurrent_Programming.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>111</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>5BF64E6D1BBE8F3EA9123BE18E2307D2D614E2C1</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>5BF64E6D1BBE8F3EA9123BE18E2307D2D614E2C1</string>
+			<key>IDESourceControlWCCName</key>
+			<string>CSCI_4830_Concurrent</string>
+		</dict>
+	</array>
+</dict>
+</plist>
