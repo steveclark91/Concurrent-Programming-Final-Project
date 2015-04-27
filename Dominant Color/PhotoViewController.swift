@@ -138,17 +138,29 @@ class PhotoViewController: UIViewController, UIImagePickerControllerDelegate, UI
     // Splits the image into a certain number of strips.  Returns a list of images.
     private func splitImage(numStrips: Int) -> [UIImage]
     {
+        // Get image data
         let myImage = imageView.image!
         let newWidth = myImage.size.width
         let newHeight = (myImage.size.height) / CGFloat(numStrips)
+        
+        // Stores the split strips of the image
         var splitImages = Array<UIImage>()
         
         for (var i = 0; i < numStrips; i++)
         {
+            // Determines where to split the image next
             let stripVert = CGFloat(i) * newHeight
+            
+            // The size of the split image
             let cropRect = CGRectMake(0.0, stripVert, newWidth, newHeight)
+            
+            // Creates an image from the specified size and location
             let tempImage = CGImageCreateWithImageInRect(myImage.CGImage!, cropRect)
+            
+            // Converts created image to a UIImage
             let newImage = UIImage(CGImage: tempImage)!
+            
+            // Add image strip to array
             splitImages.append(newImage)
         }
         
