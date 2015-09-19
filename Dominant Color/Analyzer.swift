@@ -13,15 +13,15 @@ extension UIImage
 {
     func getPixelColor(pos: CGPoint) -> UIColor {
         
-        var pixelData = CGDataProviderCopyData(CGImageGetDataProvider(self.CGImage))
-        var data: UnsafePointer<UInt8> = CFDataGetBytePtr(pixelData)
+        let pixelData = CGDataProviderCopyData(CGImageGetDataProvider(self.CGImage))
+        let data: UnsafePointer<UInt8> = CFDataGetBytePtr(pixelData)
         
-        var pixelInfo: Int = ((Int(self.size.width) * Int(pos.y)) + Int(pos.x)) * 4
+        let pixelInfo: Int = ((Int(self.size.width) * Int(pos.y)) + Int(pos.x)) * 4
         
-        var r = CGFloat(data[pixelInfo]) / CGFloat(255.0)
-        var g = CGFloat(data[pixelInfo+1]) / CGFloat(255.0)
-        var b = CGFloat(data[pixelInfo+2]) / CGFloat(255.0)
-        var a = CGFloat(data[pixelInfo+3]) / CGFloat(255.0)
+        let r = CGFloat(data[pixelInfo]) / CGFloat(255.0)
+        let g = CGFloat(data[pixelInfo+1]) / CGFloat(255.0)
+        let b = CGFloat(data[pixelInfo+2]) / CGFloat(255.0)
+        let a = CGFloat(data[pixelInfo+3]) / CGFloat(255.0)
         
         return UIColor(red: r, green: g, blue: b, alpha: a)
     }
@@ -45,7 +45,7 @@ class Analyzer
     private var colorCount = [Int](count: 10, repeatedValue: 0)
     
     /// Imports an image to be analyzed and returns a string containing the name of the dominant color
-    func analyzeColors(myImage: UIImage) -> String
+    func analyzeColors(inout myImage: UIImage) -> String
     {
         // Get image information
         let imgWidth = myImage.size.width
@@ -63,7 +63,7 @@ class Analyzer
         {
             for (var j = CGFloat(0); j < imgHeight; j++)
             {
-                pixel = getPixelFromImage(myImage, x: i, y: j)
+                pixel = getPixelFromImage(&myImage, x: i, y: j)
                 colorIndex = pixel.color()
                 colorCount[colorIndex]++
                 pixelCount++
@@ -73,18 +73,18 @@ class Analyzer
             let percent = floor(((pixelCount / totalPixels) * 100))
             if (percent > previousVal)
             {
-                println("\(percent)%")
+                print("\(percent)%")
                 previousVal++
             }
         }
         
         // Determine and return the string for the dominant color of the image
-        var dominantIndex = indexOfDominantColor(colorCount)
+        let dominantIndex = indexOfDominantColor(colorCount)
         return getDominantColorName(dominantIndex)
     }
     
     // Returns the pixel you want analyzed
-    private func getPixelFromImage(image: UIImage, x: CGFloat, y:CGFloat) -> Pixel
+    private func getPixelFromImage(inout image: UIImage, x: CGFloat, y:CGFloat) -> Pixel
     {
         // CGFloats for storing RGBA values
         var redVal: CGFloat = 0
@@ -94,7 +94,7 @@ class Analyzer
         
         // Use the getPixelColor method from the extension added to UIImage
         let pixelLocation = CGPointMake(x, y)
-        var pixelRGB = image.getPixelColor(pixelLocation)
+        let pixelRGB = image.getPixelColor(pixelLocation)
         pixelRGB.getRed(&redVal, green: &greenVal, blue: &blueVal, alpha: &cgAlpha)
         
         // Range is 0 - 1, update to 0 - 255
@@ -111,7 +111,7 @@ class Analyzer
     {
         var max = colorArray[0]
         var maxIndex = 0
-        var loopBound = colorArray.count
+        let loopBound = colorArray.count
         
         // Determine the max pixel count in the pixel array
         for (var i = 1; i < loopBound; i++)

@@ -1,0 +1,30 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "D8BA11538CB767BE0D7A619E0187E4D8978A65AC",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "D8BA11538CB767BE0D7A619E0187E4D8978A65AC" : 0,
+    "5BF64E6D1BBE8F3EA9123BE18E2307D2D614E2C1" : 0
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "CDF2653C-A49F-4572-8DA2-715D9E315D05",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "D8BA11538CB767BE0D7A619E0187E4D8978A65AC" : "Dominant%20Color",
+    "5BF64E6D1BBE8F3EA9123BE18E2307D2D614E2C1" : ""
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "Dominant Color",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "Dominant Color.xcodeproj",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/steveclark91\/Concurrent_Programming.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "5BF64E6D1BBE8F3EA9123BE18E2307D2D614E2C1"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/steveclark91\/Dominant_Color.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "D8BA11538CB767BE0D7A619E0187E4D8978A65AC"
+    }
+  ]
+}

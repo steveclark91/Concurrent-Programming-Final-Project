@@ -30,13 +30,13 @@ class PhotoViewController: UIViewController, UIImagePickerControllerDelegate, UI
     {
         let photoOption = UIAlertController(title: nil, message: "Select an Input Type", preferredStyle: .ActionSheet)
         
-        let photoLibraryAction = UIAlertAction(title: "Photo Library", style: .Default) { (alert: UIAlertAction!) -> Void in
-            println("Photo Library Selected")
+        let photoLibraryAction = UIAlertAction(title: "Photo Library", style: .Default) { (alert: UIAlertAction) -> Void in
+            print("Photo Library Selected")
             self.chooseFromPhotoLibrary()
         }
         
-        let cameraAction = UIAlertAction(title: "Camera", style: .Default) { (alert: UIAlertAction!) -> Void in
-            println("Camera Selected")
+        let cameraAction = UIAlertAction(title: "Camera", style: .Default) { (alert: UIAlertAction) -> Void in
+            print("Camera Selected")
             self.chooseFromCamera()
         }
         
@@ -74,7 +74,7 @@ class PhotoViewController: UIViewController, UIImagePickerControllerDelegate, UI
     }
     
     
-    func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [NSObject: AnyObject])
+    func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String: AnyObject])
     {
         let newImage = info[UIImagePickerControllerOriginalImage] as? UIImage
         
@@ -91,17 +91,21 @@ class PhotoViewController: UIViewController, UIImagePickerControllerDelegate, UI
     // Passes an image to the Analyzer class
     @IBAction func analyzePhoto(sender: UIBarButtonItem)
     {
+        var currentImage = imageView.image!
         
-        println(imageView.image!.size)
+        print(currentImage.size)
         
         // Used to determine how long it took an image to be analyzed
         let startTime = NSDate()
         
+        /*
+        let numThreads = 8
+        
         // Split the image into 8 strips
-        let imageStrips = splitImage(8)
+        let imageStrips = splitImage(numThreads)
         
         // Stores the dominant color of each strip
-        var colorList = [String](count: 8, repeatedValue: "")
+        var colorList = [String](count: numThreads, repeatedValue: "")
         
         
         // Code used from a post on StackOverflow
@@ -112,32 +116,35 @@ class PhotoViewController: UIViewController, UIImagePickerControllerDelegate, UI
         let qos_attr = dispatch_queue_attr_make_with_qos_class(DISPATCH_QUEUE_SERIAL, QOS_CLASS_UTILITY, 0)
         let syncQueue = dispatch_queue_create("syncQueue", qos_attr)
         
-        
-        for i in 0 ..< 8
+        for i in 0 ..< numThreads
         {
             dispatch_group_async(group, queue){
+                let startTime = NSDate()
                 let color = self.photoAnalyzer.analyzeColors(imageStrips[i])
+                let endTime = NSDate()
+                let totalTime = endTime.timeIntervalSinceDate(startTime)
+                println("Analysis took \(totalTime) seconds.")
+                
                 dispatch_sync(syncQueue){
                     colorList[i] = color
+                    self.alertUser("Green")
                     return
                 }
             }
         }
+*/
         
-        println(colorList)
-        
-        /* 
-            Passes the current image to the photo analyzer
-            Uncomment the following line to run analyzer sequentially
+        /*
+            Uncomment the following lines of code to run the app sequentially.
         */
-        //let color = photoAnalyzer.analyzeColors(imageView.image!)
+        let color = photoAnalyzer.analyzeColors(&currentImage)
         
         // Used to determine how long it took an image to be analyzed
         let endTime = NSDate()
         let totalTime = endTime.timeIntervalSinceDate(startTime)
         
         // Print time to console
-        println("Analysis took \(totalTime) seconds.")
+        print("Analysis took \(totalTime) seconds.")
         
         // Tell the user which color is dominant
         alertUser(color)
@@ -177,7 +184,7 @@ class PhotoViewController: UIViewController, UIImagePickerControllerDelegate, UI
             let tempImage = CGImageCreateWithImageInRect(myImage.CGImage!, cropRect)
             
             // Converts created image to a UIImage
-            let newImage = UIImage(CGImage: tempImage)!
+            let newImage = UIImage(CGImage: tempImage!)
             
             // Add image strip to array
             splitImages.append(newImage)
